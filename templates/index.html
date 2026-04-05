@@ -1,0 +1,1878 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Prediksi TPT Jawa Barat</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/bootstrap.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/vendors/bootstrap-icons/bootstrap-icons.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/app.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/pages/main_custom.css') }}"
+    />
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- ══════════════════════ SIDEBAR ══════════════════════════════ -->
+      <div id="sidebar" class="active">
+        <div class="sidebar-wrapper active">
+          <div class="sidebar-header" style="padding: 2rem 1.5rem 1rem">
+            <div class="d-flex align-items-center">
+              <i
+                class="bi bi-bar-chart-line-fill"
+                style="font-size: 35px; color: #435ebe"
+              ></i>
+
+              <span
+                style="
+                  font-size: 28px;
+                  font-weight: 900;
+                  color: #435ebe;
+                  position: relative;
+                  left: 30px; /* Geser ke KANAN sejauh 15px */
+                  top: 15px; /* Geser ke BAWAH sejauh 2px agar sejajar ikon */
+                  display: inline-block;
+                  line-height: 1;
+                  letter-spacing: -1px;
+                  white-space: nowrap;
+                "
+              >
+                TPT Jabar
+              </span>
+            </div>
+          </div>
+          <div class="sidebar-menu">
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
+              <li class="sidebar-item active" id="nav-dashboard">
+                <a href="#" class="sidebar-link" onclick="goTo('dashboard')">
+                  <i class="bi bi-grid-fill"></i><span>Dashboard</span></a
+                >
+              </li>
+              <li class="sidebar-item" id="nav-analisis">
+                <a href="#" class="sidebar-link" onclick="goTo('analisis')">
+                  <i class="bi bi-graph-up"></i><span>Analisis Regresi</span></a
+                >
+              </li>
+              <li class="sidebar-item" id="nav-prediksi">
+                <a href="#" class="sidebar-link" onclick="goTo('prediksi')">
+                  <i class="bi bi-lightning-fill"></i
+                  ><span>Prediksi TPT</span></a
+                >
+              </li>
+              <li class="sidebar-item" id="nav-ranking">
+                <a href="#" class="sidebar-link" onclick="goTo('ranking')">
+                  <i class="bi bi-trophy-fill"></i><span>Ranking TPT</span></a
+                >
+              </li>
+              <li class="sidebar-item" id="nav-perbandingan">
+                <a href="#" class="sidebar-link" onclick="goTo('perbandingan')">
+                  <i class="bi bi-arrow-left-right"></i
+                  ><span>Perbandingan Kota</span></a
+                >
+              </li>
+              <li class="sidebar-item" id="nav-data">
+                <a href="#" class="sidebar-link" onclick="goTo('data')">
+                  <i class="bi bi-table"></i><span>Data Lengkap</span></a
+                >
+              </li>
+              <li class="sidebar-item" id="nav-dataset">
+                <a href="#" class="sidebar-link" onclick="goTo('dataset')">
+                  <i class="bi bi-cloud-upload"></i
+                  ><span>Kelola Dataset</span></a
+                >
+              </li>
+              <li class="sidebar-title">Info</li>
+              <li class="sidebar-item">
+                <a
+                  href="https://jabar.bps.go.id/id/statistics-table/2/NzMjMg==/tingkat-pengangguran-terbuka-kabupaten-kota.html"
+                  target="_blank"
+                  class="sidebar-link"
+                >
+                  <i class="bi bi-bar-chart-line-fill"></i
+                  ><span>BPS Jabar</span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="https://opendata.jabarprov.go.id/id/dataset/tingkat-pengangguran-terbuka-berdasarkan-kabupatenkota-di-jawa-barat"
+                  target="_blank"
+                  class="sidebar-link"
+                >
+                  <i class="bi bi-cloud-download"></i
+                  ><span>Open Data Jabar</span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a
+                  href="https://scikit-learn.org"
+                  target="_blank"
+                  class="sidebar-link"
+                >
+                  <i class="bi bi-cpu"></i><span>Scikit-learn</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div
+            class="px-3 py-3"
+            style="border-top: 1px solid #f0f0f0; font-size: 11px; color: #aaa"
+          >
+            Teknik Informatika<br />Universitas Bale Bandung
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════ MAIN ═════════════════════════════════ -->
+      <div id="main">
+        <header class="mb-3">
+          <nav class="navbar navbar-expand navbar-light navbar-top">
+            <div class="container-fluid">
+              <a href="#" class="burger-btn d-block"
+                ><i class="bi bi-justify fs-3"></i
+              ></a>
+              <div class="navbar-nav ms-auto gap-2 align-items-center">
+                <button
+                  id="theme-toggle"
+                  onclick="toggleTheme()"
+                  title="Ganti Tema Gelap/Terang"
+                >
+                  <i id="theme-icon" class="bi bi-moon"></i>
+                </button>
+                <span class="badge bg-light-primary text-primary px-3 py-2">
+                  <i class="bi bi-geo-alt-fill me-1"></i>Jawa Barat</span
+                >
+                <span class="badge bg-light-success text-success px-3 py-2">
+                  <i class="bi bi-database-fill me-1"></i>BPS 2019–2025</span
+                >
+              </div>
+            </div>
+          </nav>
+        </header>
+
+        <div class="page-heading">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 id="page-title">Dashboard Prediksi TPT</h3>
+              <p class="text-subtitle text-muted" id="page-sub">
+                Tingkat Pengangguran Terbuka Kab/Kota Jawa Barat
+              </p>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active" id="bc-active">
+                    Dashboard
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <!-- ══════════════════════════════════════════════════
+       DASHBOARD
+  ══════════════════════════════════════════════════ -->
+          <div id="section-dashboard" class="page-section active">
+            <!-- stat cards -->
+            <section class="row g-3 mb-4">
+              <div class="col-6 col-md-3">
+                <div class="card">
+                  <div class="card-body d-flex align-items-center gap-3 py-3">
+                    <div class="stat-icon bg-light-primary text-primary">
+                      <i class="bi bi-geo-fill"></i>
+                    </div>
+                    <div>
+                      <p
+                        class="text-muted mb-0"
+                        style="font-size: 10px; text-transform: uppercase"
+                      >
+                        Kab/Kota
+                      </p>
+                      <h5 class="fw-bold mb-0" id="s-total">27</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="card">
+                  <div class="card-body d-flex align-items-center gap-3 py-3">
+                    <div class="stat-icon bg-light-success text-success">
+                      <i class="bi bi-bar-chart-line"></i>
+                    </div>
+                    <div>
+                      <p
+                        class="text-muted mb-0"
+                        style="font-size: 10px; text-transform: uppercase"
+                      >
+                        Rata-rata TPT <span id="s-yr">2025</span>
+                      </p>
+                      <h5 class="fw-bold mb-0" id="s-avg">—</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="card">
+                  <div class="card-body d-flex align-items-center gap-3 py-3">
+                    <div class="stat-icon bg-light-danger text-danger">
+                      <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                      <p
+                        class="text-muted mb-0"
+                        style="font-size: 10px; text-transform: uppercase"
+                      >
+                        TPT Tertinggi
+                      </p>
+                      <h5 class="fw-bold mb-0" id="s-max">—</h5>
+                      <p
+                        class="text-muted mb-0"
+                        style="font-size: 10px"
+                        id="s-max-kota"
+                      >
+                        —
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="card">
+                  <div class="card-body d-flex align-items-center gap-3 py-3">
+                    <div
+                      class="stat-icon"
+                      style="background: #f0edff; color: #6f42c1"
+                    >
+                      <i class="bi bi-arrow-down-circle-fill"></i>
+                    </div>
+                    <div>
+                      <p
+                        class="text-muted mb-0"
+                        style="font-size: 10px; text-transform: uppercase"
+                      >
+                        TPT Terendah
+                      </p>
+                      <h5 class="fw-bold mb-0" id="s-min">—</h5>
+                      <p
+                        class="text-muted mb-0"
+                        style="font-size: 10px"
+                        id="s-min-kota"
+                      >
+                        —
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- bar chart full width + year filter -->
+            <section class="row mb-4">
+              <div class="col-12">
+                <div class="card">
+                  <div
+                    class="card-header d-flex align-items-start justify-content-between flex-wrap gap-2"
+                  >
+                    <div>
+                      <h4 class="card-title mb-0">
+                        <i class="bi bi-bar-chart-fill text-primary me-2"></i
+                        >TPT Semua Kab/Kota
+                      </h4>
+                      <p
+                        class="text-muted small mb-0 mt-1"
+                        id="overview-sort-label"
+                      >
+                        Terendah → Tertinggi (kiri ke kanan)
+                      </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                      <div
+                        id="overviewYearTabs"
+                        class="d-flex flex-wrap gap-1"
+                      ></div>
+                      <div class="btn-group sort-toggle" role="group">
+                        <button
+                          type="button"
+                          class="btn btn-primary"
+                          id="btnSortAsc"
+                          onclick="setOverviewSort('asc')"
+                        >
+                          <i class="bi bi-sort-up me-1"></i>Terendah dulu
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          id="btnSortDesc"
+                          onclick="setOverviewSort('desc')"
+                        >
+                          <i class="bi bi-sort-down me-1"></i>Tertinggi dulu
+                        </button>
+                      </div>
+                      <span class="badge bg-primary fs-6 px-3" id="badge-tahun"
+                        >—</span
+                      >
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="ch-400">
+                      <canvas id="chartOverview"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- province trend -->
+            <section class="row mb-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-activity text-primary me-2"></i>Tren
+                      Rata-rata TPT Provinsi Jawa Barat (2019–2025)
+                    </h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="ch-240">
+                      <canvas id="chartProvTrend"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- /dashboard -->
+
+          <!-- ══════════════════════════════════════════════════
+       ANALISIS REGRESI
+  ══════════════════════════════════════════════════ -->
+          <div id="section-analisis" class="page-section">
+            <div class="row justify-content-center mb-4">
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-sliders2 text-primary me-2"></i>Pilih
+                      Daerah
+                    </h4>
+                  </div>
+                  <div class="card-body compact-form">
+                    <div class="mb-3">
+                      <label class="form-label">Kabupaten / Kota</label>
+                      <select class="form-select" id="selKotaAnalisis">
+                        <option value="">— Pilih Kab/Kota —</option>
+                        {% for k in kota_list %}
+                        <option value="{{ k }}">{{ k }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <button
+                      class="btn btn-primary w-100"
+                      onclick="runAnalysis()"
+                    >
+                      <i class="bi bi-graph-up me-2"></i>Analisis &amp; Lihat
+                      Hasil
+                    </button>
+                    <div
+                      class="spin-wrap mt-2 justify-content-center"
+                      id="spinAnalisis"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        style="width: 18px; height: 18px"
+                      ></div>
+                      <span class="text-muted small">Menganalisis…</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="analisis-result" style="display: none">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                <span class="text-muted small">Model aktif:</span>
+                <span class="kota-tag" id="lbl-kota-an">—</span>
+              </div>
+
+              <!-- Metric cards with colors -->
+              <div class="row justify-content-center g-2 mb-4">
+                <div class="col-6 col-md-4 col-lg-2">
+                  <div
+                    class="card text-center"
+                    style="border-top: 4px solid #435ebe"
+                  >
+                    <div
+                      class="card-body py-2 px-2"
+                      style="background: linear-gradient(135deg, #f0f4ff, #fff)"
+                    >
+                      <div class="mb-1">
+                        <i
+                          class="bi bi-bullseye text-primary"
+                          style="font-size: 18px"
+                        ></i>
+                      </div>
+                      <p
+                        class="text-muted mb-1"
+                        style="
+                          font-size: 10px;
+                          text-transform: uppercase;
+                          font-weight: 700;
+                        "
+                      >
+                        MAE
+                      </p>
+                      <h5 class="fw-bold mb-0 text-primary" id="mMAE">—</h5>
+                      <p class="text-muted mb-0" style="font-size: 10px">
+                        Mean Abs. Error
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                  <div
+                    class="card text-center"
+                    style="border-top: 4px solid #ffc107"
+                  >
+                    <div
+                      class="card-body py-2 px-2"
+                      style="background: linear-gradient(135deg, #fffcf0, #fff)"
+                    >
+                      <div class="mb-1">
+                        <i
+                          class="bi bi-calculator-fill"
+                          style="font-size: 18px; color: #ffc107"
+                        ></i>
+                      </div>
+                      <p
+                        class="mb-1"
+                        style="
+                          font-size: 10px;
+                          text-transform: uppercase;
+                          font-weight: 700;
+                          color: #856404;
+                        "
+                      >
+                        MSE
+                      </p>
+                      <h5 class="fw-bold mb-0" style="color: #856404" id="mMSE">
+                        —
+                      </h5>
+                      <p class="text-muted mb-0" style="font-size: 10px">
+                        Mean Sq. Error
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                  <div
+                    class="card text-center"
+                    style="border-top: 4px solid #28a745"
+                  >
+                    <div
+                      class="card-body py-2 px-2"
+                      style="background: linear-gradient(135deg, #f0fff4, #fff)"
+                    >
+                      <div class="mb-1">
+                        <i
+                          class="bi bi-award-fill text-success"
+                          style="font-size: 18px"
+                        ></i>
+                      </div>
+                      <p
+                        class="text-muted mb-1"
+                        style="
+                          font-size: 10px;
+                          text-transform: uppercase;
+                          font-weight: 700;
+                          color: #1a7f3c;
+                        "
+                      >
+                        R²
+                      </p>
+                      <h5 class="fw-bold mb-0 text-success" id="mR2">—</h5>
+                      <p class="text-muted mb-0" style="font-size: 10px">
+                        Koef. Determinasi
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                  <div
+                    class="card text-center"
+                    style="border-top: 4px solid #6f42c1"
+                  >
+                    <div
+                      class="card-body py-2 px-2"
+                      style="background: linear-gradient(135deg, #f5f0ff, #fff)"
+                    >
+                      <div class="mb-1">
+                        <i
+                          class="bi bi-bar-chart-steps"
+                          style="font-size: 18px; color: #6f42c1"
+                        ></i>
+                      </div>
+                      <p
+                        class="mb-1"
+                        style="
+                          font-size: 10px;
+                          text-transform: uppercase;
+                          font-weight: 700;
+                          color: #6f42c1;
+                        "
+                      >
+                        Koefisien b
+                      </p>
+                      <h5
+                        class="fw-bold mb-0"
+                        style="color: #6f42c1"
+                        id="mCoef"
+                      >
+                        —
+                      </h5>
+                      <p class="text-muted mb-0" style="font-size: 10px">
+                        Kemiringan garis
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                  <div
+                    class="card text-center"
+                    style="border-top: 4px solid #0dcaf0"
+                  >
+                    <div
+                      class="card-body py-2 px-2"
+                      style="background: linear-gradient(135deg, #f0fbff, #fff)"
+                    >
+                      <div class="mb-1">
+                        <i
+                          class="bi bi-intersect"
+                          style="font-size: 18px; color: #0dcaf0"
+                        ></i>
+                      </div>
+                      <p
+                        class="mb-1"
+                        style="
+                          font-size: 10px;
+                          text-transform: uppercase;
+                          font-weight: 700;
+                          color: #0987a5;
+                        "
+                      >
+                        Intersep a
+                      </p>
+                      <h5
+                        class="fw-bold mb-0"
+                        style="color: #0987a5"
+                        id="mIntercept"
+                      >
+                        —
+                      </h5>
+                      <p class="text-muted mb-0" style="font-size: 10px">
+                        Nilai Y saat X=0
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Line chart full width -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title mb-0">
+                        <i class="bi bi-graph-up text-primary me-2"></i>Tren
+                        Aktual vs Garis Regresi
+                      </h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="ch-320"><canvas id="chartLine"></canvas></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Scatter plot full width below -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title mb-0">
+                        <i class="bi bi-fullscreen text-primary me-2"></i
+                        >Scatter Plot — Aktual vs Prediksi
+                      </h4>
+                      <p class="text-muted small mb-0 mt-1">
+                        Titik mendekati garis diagonal (hijau) = prediksi makin
+                        akurat
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <div class="ch-280">
+                        <canvas id="chartScatter"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-12 col-lg-5 mb-4 mb-lg-0">
+                  <div class="card h-100">
+                    <div class="card-header">
+                      <h4 class="card-title mb-0">
+                        <i class="bi bi-calculator text-primary me-2"></i
+                        >Perhitungan Koefisien Regresi (OLS)
+                      </h4>
+                      <p class="text-muted small mb-0 mt-1">
+                        Ordinary Least Squares — langkah demi langkah
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <div class="formula-box mb-3" id="olsFormula">—</div>
+                      <div id="olsSteps"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                  <div class="card h-100">
+                    <div
+                      class="card-header d-flex align-items-center justify-content-between"
+                    >
+                      <h4 class="card-title mb-0">
+                        <i class="bi bi-table text-primary me-2"></i>Tabel
+                        Perbandingan Aktual vs Prediksi
+                      </h4>
+                      <span
+                        class="badge bg-light-primary text-primary"
+                        id="an-total"
+                        >—</span
+                      >
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="ps-3 text-center">Tahun</th>
+                              <th class="text-center">Aktual (%)</th>
+                              <th class="text-center">Prediksi (%)</th>
+                              <th class="text-center">Selisih</th>
+                              <th class="text-center">Akurasi</th>
+                              <th class="text-center">Formula Y</th>
+                            </tr>
+                          </thead>
+                          <tbody id="anTableBody"></tbody>
+                          <tfoot
+                            class="table-light"
+                            id="anTableFoot"
+                            style="display: none"
+                          >
+                            <tr>
+                              <td class="ps-3 fw-semibold">Rata-rata</td>
+                              <td class="text-end fw-semibold" id="an-avgAkt">
+                                —
+                              </td>
+                              <td class="text-end fw-semibold" id="an-avgPred">
+                                —
+                              </td>
+                              <td class="text-end fw-semibold" id="an-avgSel">
+                                —
+                              </td>
+                              <td colspan="2"></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /analisis-result -->
+          </div>
+          <!-- /analisis -->
+
+          <!-- ══════════════════════════════════════════════════
+       PREDIKSI TPT
+  ══════════════════════════════════════════════════ -->
+          <div id="section-prediksi" class="page-section">
+            <!-- Initial centered form -->
+            <div id="predInitialWrap" class="row justify-content-center mb-4">
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-lightning-fill text-primary me-2"></i
+                      >Prediksi TPT
+                    </h4>
+                    <p class="text-muted small mb-0 mt-1">
+                      Tingkat Pengangguran Terbuka Kab/Kota Jawa Barat
+                    </p>
+                  </div>
+                  <div class="card-body compact-form">
+                    <div class="mb-3">
+                      <label class="form-label">Kabupaten/Kota</label>
+                      <select class="form-select" id="selKotaPred">
+                        <option value="">-- Pilih Kab/Kota --</option>
+                        {% for k in kota_list %}
+                        <option value="{{ k }}">{{ k }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Tahun Prediksi</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="inpTahunPred"
+                        value="2026"
+                        min="2010"
+                        max="2060"
+                      />
+                      <small class="text-muted"
+                        >Data historis tersedia: 2019–2025</small
+                      >
+                    </div>
+                    <button
+                      class="btn btn-primary w-100"
+                      onclick="doPrediksi()"
+                    >
+                      <i class="bi bi-play-fill me-2"></i>Jalankan Prediksi
+                    </button>
+                    <div
+                      class="spin-wrap mt-2 justify-content-center"
+                      id="spinPred"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        style="width: 18px; height: 18px"
+                      ></div>
+                      <span class="text-muted small">Menghitung…</span>
+                    </div>
+                    <div
+                      class="pred-card mt-3"
+                      style="
+                        min-height: 120px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    >
+                      <div class="lbl">Hasil Prediksi TPT</div>
+                      <div class="num">—</div>
+                      <div class="unit">% (persen)</div>
+                      <div
+                        style="font-size: 11px; opacity: 0.65; margin-top: 4px"
+                      >
+                        Pilih kota dan jalankan prediksi
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Side-by-side layout after first run -->
+            <div id="predFullLayout" class="row g-4" style="display: none">
+              <div class="col-12 col-lg-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-lightning-fill text-primary me-2"></i
+                      >Prediksi TPT
+                    </h4>
+                    <p class="text-muted small mb-0 mt-1">
+                      Tingkat Pengangguran Terbuka Kab/Kota Jawa Barat
+                    </p>
+                  </div>
+                  <div class="card-body compact-form">
+                    <div class="mb-3">
+                      <label class="form-label">Kabupaten/Kota</label>
+                      <select class="form-select" id="selKotaPred2">
+                        <option value="">-- Pilih Kab/Kota --</option>
+                        {% for k in kota_list %}
+                        <option value="{{ k }}">{{ k }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Tahun Prediksi</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="inpTahunPred2"
+                        value="2026"
+                        min="2010"
+                        max="2060"
+                      />
+                      <small class="text-muted"
+                        >Data historis tersedia: 2019–2025</small
+                      >
+                    </div>
+                    <button
+                      class="btn btn-primary w-100"
+                      onclick="doPrediksiSide()"
+                    >
+                      <i class="bi bi-play-fill me-2"></i>Jalankan Prediksi
+                    </button>
+                    <div
+                      class="spin-wrap mt-2 justify-content-center"
+                      id="spinPred2"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        style="width: 18px; height: 18px"
+                      ></div>
+                      <span class="text-muted small">Menghitung…</span>
+                    </div>
+                    <div class="pred-card mt-3">
+                      <div class="lbl">Hasil Prediksi TPT</div>
+                      <div class="num" id="pNum">—</div>
+                      <div class="unit">
+                        % (persen) · <span id="pTahun">—</span>
+                      </div>
+                      <div
+                        style="font-size: 11px; opacity: 0.65; margin-top: 4px"
+                        id="pKota"
+                      >
+                        —
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mt-3" id="predCalcCard" style="display: none">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-calculator text-primary me-2"></i>Cara
+                      Perhitungan
+                    </h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="text-muted small mb-2">
+                      Persamaan model regresi linear:
+                    </p>
+                    <div class="formula-box mb-3" id="predFormula">
+                      Y = a + b × X
+                    </div>
+                    <p class="text-muted small mb-2 mt-3">
+                      Substitusi nilai tahun:
+                    </p>
+                    <div id="predCalcSteps"></div>
+                    <div
+                      class="mt-3 p-2 rounded"
+                      style="
+                        background: #f0f4ff;
+                        font-size: 12px;
+                        color: #435ebe;
+                      "
+                    >
+                      <i class="bi bi-info-circle me-1"></i>
+                      <strong>Tren:</strong> <span id="predTrenText">—</span> ·
+                      <strong>Δ dari tahun terakhir:</strong>
+                      <span id="predDelta">—</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-8">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-graph-up text-primary me-2"></i>Grafik
+                      Data Historis &amp; Proyeksi
+                    </h4>
+                    <p class="text-muted small mb-0 mt-1" id="predChartTitle">
+                      —
+                    </p>
+                  </div>
+                  <div class="card-body">
+                    <div class="ch-280">
+                      <canvas id="chartPredLine"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-table text-primary me-2"></i>Data Historis
+                      &amp; Nilai Prediksi
+                    </h4>
+                  </div>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                          <tr>
+                            <th class="ps-3">Tahun</th>
+                            <th class="text-end">Aktual (%)</th>
+                            <th class="text-end">Prediksi Model (%)</th>
+                            <th class="text-end">|Selisih|</th>
+                            <th>Keterangan</th>
+                          </tr>
+                        </thead>
+                        <tbody id="predHistTable"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /prediksi -->
+
+          <!-- ══════════════════════════════════════════════════
+       RANKING TPT
+  ══════════════════════════════════════════════════ -->
+          <div id="section-ranking" class="page-section">
+            <div class="mb-3 d-flex align-items-center flex-wrap gap-2">
+              <span class="fw-semibold small"
+                ><i class="bi bi-calendar3 me-1"></i>Filter Tahun:</span
+              >
+              <div id="rankYearTabs"></div>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-lg-6">
+                <div class="card">
+                  <div class="card-header d-flex gap-2 align-items-center">
+                    <i class="bi bi-arrow-up-circle-fill text-danger fs-5"></i>
+                    <div>
+                      <h4 class="card-title mb-0">10 TPT Tertinggi</h4>
+                      <p class="text-muted small mb-0" id="rk-hi-sub">—</p>
+                    </div>
+                  </div>
+                  <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="ps-3">Rank</th>
+                          <th>Kab/Kota</th>
+                          <th class="text-end pe-3">TPT (%)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="rkHiBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="card">
+                  <div class="card-header d-flex gap-2 align-items-center">
+                    <i
+                      class="bi bi-arrow-down-circle-fill text-success fs-5"
+                    ></i>
+                    <div>
+                      <h4 class="card-title mb-0">10 TPT Terendah</h4>
+                      <p class="text-muted small mb-0" id="rk-lo-sub">—</p>
+                    </div>
+                  </div>
+                  <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="ps-3">Rank</th>
+                          <th>Kab/Kota</th>
+                          <th class="text-end pe-3">TPT (%)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="rkLoBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /ranking -->
+
+          <!-- ══════════════════════════════════════════════════
+       PERBANDINGAN KOTA
+  ══════════════════════════════════════════════════ -->
+          <div id="section-perbandingan" class="page-section">
+            <div class="row justify-content-center mb-4">
+              <div class="col-12 col-md-8 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title mb-0">
+                      <i class="bi bi-arrow-left-right text-primary me-2"></i
+                      >Pilih Kabupaten/Kota untuk Dibandingkan
+                    </h4>
+                  </div>
+                  <div class="card-body compact-form">
+                    <div class="row g-2">
+                      <div class="col-6">
+                        <label class="form-label">Kota 1</label>
+                        <select class="form-select" id="cmpKota1">
+                          <option value="">— Pilih —</option>
+                          {% for k in kota_list %}
+                          <option value="{{ k }}">{{ k }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label">Kota 2</label>
+                        <select class="form-select" id="cmpKota2">
+                          <option value="">— Pilih —</option>
+                          {% for k in kota_list %}
+                          <option value="{{ k }}">{{ k }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row g-2 mt-1">
+                      <div class="col-6">
+                        <label class="form-label"
+                          >Kota 3
+                          <span class="text-muted">(opsional)</span></label
+                        >
+                        <select class="form-select" id="cmpKota3">
+                          <option value="">— Pilih —</option>
+                          {% for k in kota_list %}
+                          <option value="{{ k }}">{{ k }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-6 d-flex align-items-end">
+                        <button
+                          class="btn btn-primary w-100"
+                          onclick="doCompare()"
+                        >
+                          <i class="bi bi-bar-chart me-2"></i>Bandingkan
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="cmpResult" style="display: none">
+              <!-- Info stat cards -->
+              <div class="row g-3 mb-4" id="cmpInfoCards"></div>
+              <!-- Chart -->
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h4 class="card-title mb-0">
+                    <i class="bi bi-bar-chart-line text-primary me-2"></i
+                    >Perbandingan Tren TPT Antar Kota
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <div class="ch-360"><canvas id="chartCompare"></canvas></div>
+                </div>
+              </div>
+              <!-- Comparison data table -->
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title mb-0">
+                    <i class="bi bi-table text-primary me-2"></i>Tabel Detail
+                    Perbandingan per Tahun
+                  </h4>
+                  <div class="d-flex flex-wrap gap-3 mt-2">
+                    <span style="font-size: 11px"
+                      ><span class="fw-bold text-danger">■</span>
+                      <span class="text-muted"
+                        >Tertinggi di tahun itu</span
+                      ></span
+                    >
+                    <span style="font-size: 11px"
+                      ><span class="fw-bold text-success">■</span>
+                      <span class="text-muted"
+                        >Terendah di tahun itu</span
+                      ></span
+                    >
+                    <span style="font-size: 11px"
+                      ><span style="color: #555; font-weight: 700">■</span>
+                      <span class="text-muted"
+                        >Nilai menengah / normal</span
+                      ></span
+                    >
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <thead class="table-light" id="cmpTableHead"></thead>
+                      <tbody id="cmpTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /perbandingan -->
+
+          <!-- ══════════════════════════════════════════════════
+       DATA LENGKAP
+  ══════════════════════════════════════════════════ -->
+          <div id="section-data" class="page-section">
+            <!-- Download bar (ABOVE table) -->
+            <div class="dl-bar mb-3">
+              <div class="row align-items-end g-3">
+                <div class="col-12 col-md-auto">
+                  <p class="fw-semibold mb-1 small">
+                    <i class="bi bi-download me-1"></i>Unduh Data
+                  </p>
+                  <div
+                    class="d-flex flex-wrap gap-1"
+                    id="dlYearCheckboxes"
+                  ></div>
+                </div>
+                <div class="col-auto">
+                  <label class="form-label small mb-1">Format</label>
+                  <select
+                    class="form-select form-select-sm"
+                    id="dlFmt"
+                    style="width: 110px"
+                  >
+                    <option value="csv">CSV</option>
+                    <option value="excel">Excel (.xlsx)</option>
+                    <option value="json">JSON</option>
+                  </select>
+                </div>
+                <div class="col-auto">
+                  <button class="btn btn-success btn-sm" onclick="doDownload()">
+                    <i class="bi bi-file-earmark-arrow-down me-1"></i>Unduh
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- filter bar -->
+            <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+              <span class="fw-semibold small"
+                ><i class="bi bi-calendar3 me-1"></i>Filter Tahun:</span
+              >
+              <div id="dataYearTabs"></div>
+              <div class="ms-auto d-flex gap-2">
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="dataSearch"
+                  placeholder="Cari kab/kota…"
+                  style="width: 170px"
+                  oninput="filterData()"
+                />
+              </div>
+            </div>
+
+            <!-- Data table -->
+            <div class="card">
+              <div
+                class="card-header d-flex align-items-center justify-content-between"
+              >
+                <h4 class="card-title mb-0">
+                  <i class="bi bi-table text-primary me-2"></i>Data Lengkap TPT
+                  Jawa Barat (2019–2025)
+                </h4>
+                <span class="badge bg-light-primary text-primary" id="dataTotal"
+                  >—</span
+                >
+              </div>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th
+                          class="ps-3 sortable"
+                          data-col="no"
+                          style="width: 55px"
+                        >
+                          No<span class="sort-icon"></span>
+                        </th>
+                        <th
+                          class="sortable"
+                          data-col="tahun"
+                          style="width: 90px"
+                        >
+                          Tahun<span class="sort-icon"></span>
+                        </th>
+                        <th class="sortable" data-col="kota">
+                          Kabupaten / Kota<span class="sort-icon"></span>
+                        </th>
+                        <th
+                          class="sortable text-center"
+                          data-col="tpt"
+                          style="width: 100px"
+                        >
+                          TPT (%)<span class="sort-icon"></span>
+                        </th>
+                        <th style="width: 150px">Indikator Visual</th>
+                        <th class="text-center" style="width: 90px">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dataBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /data -->
+
+          <!-- ══════════════════════ KELOLA DATASET ══════════════════════ -->
+          <div id="section-dataset" class="page-section">
+            <!-- ── Tab Navigation ── -->
+            <ul class="nav nav-tabs mb-4" id="datasetTab">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  id="tab-upload-link"
+                  href="#"
+                  onclick="
+                    switchDatasetTab('upload');
+                    return false;
+                  "
+                >
+                  <i class="bi bi-file-earmark-arrow-up me-1"></i>Upload CSV
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="tab-manual-link"
+                  href="#"
+                  onclick="
+                    switchDatasetTab('manual');
+                    return false;
+                  "
+                >
+                  <i class="bi bi-pencil-square me-1"></i>Input Manual
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="tab-preview-link"
+                  href="#"
+                  onclick="
+                    switchDatasetTab('preview');
+                    return false;
+                  "
+                >
+                  <i class="bi bi-eye me-1"></i>Preview Dataset
+                </a>
+              </li>
+            </ul>
+
+            <!-- ══ TAB: UPLOAD CSV ══════════════════════════════════════ -->
+            <div id="tab-upload" class="dataset-tab-pane">
+              <div class="row g-4">
+                <div class="col-12 col-lg-7">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center gap-2">
+                      <i class="bi bi-cloud-upload text-primary fs-5"></i>
+                      <span class="fw-700">Unggah File CSV</span>
+                    </div>
+                    <div class="card-body">
+                      <!-- Drop Zone -->
+                      <div
+                        id="dropZone"
+                        ondragover="
+                          event.preventDefault();
+                          this.classList.add('dz-active');
+                        "
+                        ondragleave="this.classList.remove('dz-active')"
+                        ondrop="handleDrop(event)"
+                        onclick="
+                          document.getElementById('csvFileInput').click()
+                        "
+                        style="
+                          border: 2px dashed #d0d7f0;
+                          border-radius: 14px;
+                          background: #f7f9ff;
+                          text-align: center;
+                          padding: 48px 24px;
+                          cursor: pointer;
+                          transition: all 0.2s;
+                        "
+                      >
+                        <i
+                          class="bi bi-file-earmark-spreadsheet"
+                          style="font-size: 48px; color: #6c7fdb"
+                        ></i>
+                        <p class="mt-3 mb-1 fw-600" style="color: #435ebe">
+                          Seret & Lepas file CSV di sini
+                        </p>
+                        <p class="text-muted small mb-3">
+                          atau klik untuk memilih file
+                        </p>
+                        <span class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-folder2-open me-1"></i>Pilih File
+                        </span>
+                      </div>
+                      <input
+                        type="file"
+                        id="csvFileInput"
+                        accept=".csv"
+                        style="display: none"
+                        onchange="handleFileSelect(this)"
+                      />
+
+                      <!-- File info -->
+                      <div id="fileInfo" class="mt-3" style="display: none">
+                        <div
+                          class="d-flex align-items-center gap-2 p-3"
+                          style="
+                            background: #e8f5e9;
+                            border-radius: 10px;
+                            border: 1px solid #c8e6c9;
+                          "
+                        >
+                          <i
+                            class="bi bi-file-earmark-check-fill text-success fs-5"
+                          ></i>
+                          <div class="flex-grow-1">
+                            <div class="fw-600 small" id="fileName">—</div>
+                            <div
+                              class="text-muted"
+                              style="font-size: 11px"
+                              id="fileSize"
+                            >
+                              —
+                            </div>
+                          </div>
+                          <button
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="clearFile()"
+                          >
+                            <i class="bi bi-x"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Preview CSV -->
+                      <div
+                        id="csvPreviewWrap"
+                        class="mt-3"
+                        style="display: none"
+                      >
+                        <p class="small fw-600 mb-2 text-muted">
+                          Preview (5 baris pertama):
+                        </p>
+                        <div
+                          style="
+                            overflow-x: auto;
+                            border-radius: 8px;
+                            border: 1px solid #e0e0e0;
+                          "
+                        >
+                          <table
+                            class="table table-sm table-bordered mb-0"
+                            id="csvPreviewTable"
+                          ></table>
+                        </div>
+                      </div>
+
+                      <!-- Kolom mapping -->
+                      <div
+                        id="colMappingWrap"
+                        class="mt-3"
+                        style="display: none"
+                      >
+                        <p class="fw-600 small mb-2">
+                          <i class="bi bi-sliders me-1"></i>Mapping Kolom
+                        </p>
+                        <div class="row g-2">
+                          <div class="col-6">
+                            <label class="form-label small mb-1"
+                              >Kolom Kab/Kota</label
+                            >
+                            <select
+                              class="form-select form-select-sm"
+                              id="mapKota"
+                            ></select>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small mb-1"
+                              >Kolom Tahun</label
+                            >
+                            <select
+                              class="form-select form-select-sm"
+                              id="mapTahun"
+                            ></select>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small mb-1"
+                              >Kolom TPT (%)</label
+                            >
+                            <select
+                              class="form-select form-select-sm"
+                              id="mapTpt"
+                            ></select>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label small mb-1"
+                              >Kolom Satuan
+                              <span class="text-muted">(opsional)</span></label
+                            >
+                            <select
+                              class="form-select form-select-sm"
+                              id="mapSatuan"
+                            >
+                              <option value="">— tidak ada —</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mt-4 d-flex gap-2 flex-wrap">
+                        <button
+                          class="btn btn-primary"
+                          id="btnUploadCsv"
+                          onclick="uploadCsv()"
+                          disabled
+                        >
+                          <i class="bi bi-cloud-upload me-1"></i>Gunakan Dataset
+                          Ini
+                        </button>
+                        <button
+                          class="btn btn-outline-secondary"
+                          onclick="resetToDefault()"
+                        >
+                          <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+                          ke Data Bawaan
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Panduan Format -->
+                <div class="col-12 col-lg-5">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center gap-2">
+                      <i class="bi bi-info-circle text-info fs-5"></i>
+                      <span class="fw-700">Panduan Format CSV</span>
+                    </div>
+                    <div class="card-body">
+                      <p class="small text-muted mb-3">
+                        File CSV harus memiliki kolom-kolom berikut (nama bisa
+                        berbeda, tapi bisa di-mapping):
+                      </p>
+                      <div
+                        class="table-responsive"
+                        style="max-height: 200px; overflow: auto"
+                      >
+                        <table class="table table-sm table-fixed-panduan">
+                          <thead class="table-light">
+                            <tr>
+                              <th class="text-center">Kolom</th>
+                              <th class="text-center">Contoh</th>
+                              <th class="text-center">Wajib</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><code>nama_kabupaten_kota</code></td>
+                              <td>Kota Bandung</td>
+                              <td class="text-center">
+                                <span class="badge bg-danger">Ya</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><code>tahun</code></td>
+                              <td>2023</td>
+                              <td class="text-center">
+                                <span class="badge bg-danger">Ya</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><code>tingkat_pengangguran_terbuka</code></td>
+                              <td>5.23</td>
+                              <td class="text-center">
+                                <span class="badge bg-danger">Ya</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><code>satuan</code></td>
+                              <td>PERSEN</td>
+                              <td class="text-center">
+                                <span class="badge bg-secondary">Tidak</span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="note-box mt-3">
+                        <strong
+                          ><i class="bi bi-lightbulb-fill me-1"></i
+                          >Tips:</strong
+                        >
+                        Dataset minimal harus memiliki
+                        <strong>3 data per kab/kota</strong>
+                        agar regresi linear dapat dijalankan dengan akurat.
+                      </div>
+                      <div class="mt-3">
+                        <a
+                          href="/api/download?fmt=csv"
+                          class="btn btn-sm btn-outline-success w-100"
+                        >
+                          <i class="bi bi-download me-1"></i>Unduh Template CSV
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Status dataset aktif -->
+                  <div class="card mt-3">
+                    <div class="card-body py-3">
+                      <div class="d-flex align-items-center gap-3">
+                        <div
+                          id="dsStatusIcon"
+                          style="
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 10px;
+                            background: #e8f5e9;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-shrink: 0;
+                          "
+                        >
+                          <i class="bi bi-database-fill text-success fs-5"></i>
+                        </div>
+                        <div>
+                          <div class="fw-700 small" id="dsStatusTitle">
+                            Dataset Bawaan Aktif
+                          </div>
+                          <div
+                            class="text-muted"
+                            style="font-size: 11px"
+                            id="dsStatusSub"
+                          >
+                            TPT Jawa Barat 2019–2025 · BPS
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /tab-upload -->
+
+            <!-- ══ TAB: INPUT MANUAL ════════════════════════════════════ -->
+            <div id="tab-manual" class="dataset-tab-pane" style="display: none">
+              <div class="row g-4">
+                <div class="col-12 col-lg-8">
+                  <div class="card">
+                    <div
+                      class="card-header d-flex align-items-center justify-content-between"
+                    >
+                      <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-pencil-square text-warning fs-5"></i>
+                        <span class="fw-700">Input Data Manual</span>
+                      </span>
+                      <div class="d-flex gap-2">
+                        <button
+                          class="btn btn-sm btn-outline-primary"
+                          onclick="addManualRow()"
+                        >
+                          <i class="bi bi-plus-circle me-1"></i>Tambah Baris
+                        </button>
+                        <button
+                          class="btn btn-sm btn-outline-danger"
+                          onclick="clearManualTable()"
+                        >
+                          <i class="bi bi-trash me-1"></i>Bersihkan
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body p-0">
+                      <div
+                        style="
+                          overflow-x: auto;
+                          max-height: 420px;
+                          overflow-y: auto;
+                        "
+                      >
+                        <table
+                          class="table table-bordered table-sm mb-0"
+                          id="manualTable"
+                        >
+                          <thead style="position: sticky; top: 0; z-index: 1">
+                            <tr class="table-light">
+                              <th style="width: 36px">#</th>
+                              <th>
+                                Kab/Kota <span class="text-danger">*</span>
+                              </th>
+                              <th style="width: 100px">
+                                Tahun <span class="text-danger">*</span>
+                              </th>
+                              <th style="width: 120px">
+                                TPT (%) <span class="text-danger">*</span>
+                              </th>
+                              <th style="width: 100px">Satuan</th>
+                              <th style="width: 44px"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="manualTableBody"></tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div
+                      class="card-footer bg-transparent d-flex gap-2 justify-content-between align-items-center"
+                    >
+                      <span class="text-muted small" id="manualRowCount"
+                        >0 baris</span
+                      >
+                      <div class="d-flex gap-2">
+                        <button
+                          class="btn btn-sm btn-outline-secondary"
+                          onclick="importManualFromCurrent()"
+                        >
+                          <i class="bi bi-arrow-down-circle me-1"></i>Impor dari
+                          Dataset Aktif
+                        </button>
+                        <button
+                          class="btn btn-sm btn-primary"
+                          onclick="submitManual()"
+                        >
+                          <i class="bi bi-check-circle me-1"></i>Gunakan Data
+                          Ini
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick Add form -->
+                <div class="col-12 col-lg-4">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center gap-2">
+                      <i class="bi bi-plus-square text-success fs-5"></i>
+                      <span class="fw-700">Tambah Cepat</span>
+                    </div>
+                    <div class="card-body compact-form">
+                      <div class="mb-2">
+                        <label class="form-label">Kab/Kota</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="qaKota"
+                          placeholder="cth. Kota Bandung"
+                          list="kotaSuggestions"
+                        />
+                        <datalist id="kotaSuggestions"></datalist>
+                      </div>
+                      <div class="mb-2">
+                        <label class="form-label">Tahun</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="qaTahun"
+                          placeholder="cth. 2024"
+                          min="2000"
+                          max="2099"
+                        />
+                      </div>
+                      <div class="mb-2">
+                        <label class="form-label">TPT (%)</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="qaTpt"
+                          placeholder="cth. 6.24"
+                          step="0.01"
+                          min="0"
+                          max="100"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Satuan</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="qaSatuan"
+                          value="PERSEN"
+                          placeholder="PERSEN"
+                        />
+                      </div>
+                      <button
+                        class="btn btn-success w-100"
+                        onclick="quickAddRow()"
+                      >
+                        <i class="bi bi-plus-circle me-1"></i>Tambah ke Tabel
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card mt-3">
+                    <div class="card-body py-3">
+                      <p class="small fw-600 mb-2">
+                        <i class="bi bi-clipboard-data me-1 text-primary"></i
+                        >Impor Cepat (Paste TSV)
+                      </p>
+                      <textarea
+                        class="form-control form-control-sm"
+                        id="pasteArea"
+                        rows="5"
+                        placeholder="Tempel data dari Excel/Spreadsheet&#10;Format: Kab/Kota [TAB] Tahun [TAB] TPT"
+                      ></textarea>
+                      <button
+                        class="btn btn-sm btn-outline-primary mt-2 w-100"
+                        onclick="parsePaste()"
+                      >
+                        <i class="bi bi-clipboard-check me-1"></i>Parse &
+                        Tambahkan
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /tab-manual -->
+
+            <!-- ══ TAB: PREVIEW ═════════════════════════════════════════ -->
+            <div
+              id="tab-preview"
+              class="dataset-tab-pane"
+              style="display: none"
+            >
+              <div class="card">
+                <div
+                  class="card-header d-flex align-items-center justify-content-between"
+                >
+                  <span class="d-flex align-items-center gap-2">
+                    <i class="bi bi-eye text-info fs-5"></i>
+                    <span class="fw-700">Preview Dataset Aktif</span>
+                  </span>
+                  <div class="d-flex gap-2 align-items-center">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="previewSearch"
+                      placeholder="Cari…"
+                      style="width: 150px"
+                      oninput="filterPreview()"
+                    />
+                    <span
+                      class="badge bg-light-primary text-primary px-3 py-2"
+                      id="previewCount"
+                      >— data</span
+                    >
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <div style="overflow: auto; max-height: 480px">
+                    <table
+                      class="table table-bordered table-sm table-hover mb-0"
+                      id="previewTable"
+                    >
+                      <thead style="position: sticky; top: 0; z-index: 1">
+                        <tr class="table-light">
+                          <th>No</th>
+                          <th>Kab/Kota</th>
+                          <th>Tahun</th>
+                          <th>TPT (%)</th>
+                          <th>Satuan</th>
+                        </tr>
+                      </thead>
+                      <tbody id="previewTableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="card-footer bg-transparent d-flex gap-2 justify-content-between align-items-center"
+                >
+                  <small class="text-muted" id="previewInfo">—</small>
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    onclick="resetToDefault()"
+                  >
+                    <i class="bi bi-arrow-counterclockwise me-1"></i>Reset ke
+                    Data Bawaan
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /tab-preview -->
+
+            <!-- Toast notifikasi -->
+            <div
+              id="dsToast"
+              style="
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                z-index: 9999;
+                display: none;
+                min-width: 260px;
+                padding: 14px 20px;
+                border-radius: 12px;
+                background: #435ebe;
+                color: #fff;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+                font-size: 14px;
+                font-weight: 600;
+                align-items: center;
+                gap: 10px;
+              "
+            >
+              <i class="bi bi-check-circle-fill fs-5"></i>
+              <span id="dsToastMsg">—</span>
+            </div>
+          </div>
+          <!-- /dataset -->
+        </div>
+        <!-- /page-content -->
+
+        <footer>
+          <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+              <p>Copyright &copy; 2026</p>
+            </div>
+            <div class="float-end">
+              <p>
+                Crafted with
+                <span class="text-danger"
+                  ><i class="bi bi-heart-fill"></i
+                ></span>
+                by <a href="http://ahmadsaugi.com">Saugi</a> distributed by<span
+                  class="text-danger"
+                ></span>
+                by
+                <a href="https://themewagon.com/">ThemeWagon</a>
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /app -->
+
+    <!-- ── Scripts ──────────────────────────────────────────────────────── -->
+    <script src="{{ url_for('static', filename='assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/vendors/chartjs/Chart.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/pages/main_custom.js') }}"></script>
+  </body>
+</html>

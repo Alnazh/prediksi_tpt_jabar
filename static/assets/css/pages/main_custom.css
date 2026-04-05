@@ -1,0 +1,729 @@
+      /* ─── layout helpers ─── */
+      .page-section {
+        display: none;
+      }
+
+      .page-section.active {
+        display: block;
+      }
+
+      .ch-240 {
+        position: relative;
+        height: 240px;
+      }
+
+      .ch-280 {
+        position: relative;
+        height: 280px;
+      }
+
+      .ch-320 {
+        position: relative;
+        height: 320px;
+      }
+
+      .ch-360 {
+        position: relative;
+        height: 360px;
+      }
+
+      .ch-400 {
+        position: relative;
+        height: 400px;
+      }
+
+      /* ─── stat icon ─── */
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      /* ─── compact form ─── */
+      .compact-form .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .compact-form .form-select,
+      .compact-form .form-control {
+        font-size: 13px;
+        padding: 7px 11px;
+      }
+
+      /* ─── formula/calc box ─── */
+      .formula-box {
+        background: #f0f4ff;
+        border-left: 4px solid #435ebe;
+        border-radius: 0 8px 8px 0;
+        padding: 10px 16px;
+        font-family: "Courier New", monospace;
+        font-size: 13px;
+        color: #435ebe;
+        font-weight: 600;
+        white-space: pre-line;
+      }
+
+      .calc-step {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 12px;
+        font-family: "Courier New", monospace;
+        color: #333;
+        margin-bottom: 6px;
+      }
+
+      /* ─── predict card ─── */
+      .pred-card {
+        background: linear-gradient(135deg, #435ebe, #6c7fdb);
+        border-radius: 14px;
+        padding: 22px 16px;
+        text-align: center;
+        color: #fff;
+        margin-top: 16px;
+      }
+
+      .pred-card .lbl {
+        font-size: 11px;
+        opacity: 0.75;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .pred-card .num {
+        font-size: 52px;
+        font-weight: 800;
+        line-height: 1;
+      }
+
+      .pred-card .unit {
+        font-size: 13px;
+        opacity: 0.75;
+        margin-top: 4px;
+      }
+
+      /* ─── pred card center before run ─── */
+      .pred-card-initial {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 160px;
+      }
+
+      /* ─── accuracy badges ─── */
+      .b-t {
+        background: #e6f4ea;
+        color: #1a7f3c;
+        padding: 2px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .b-s {
+        background: #fff3cd;
+        color: #856404;
+        padding: 2px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .b-r {
+        background: #fde8e8;
+        color: #b91c1c;
+        padding: 2px 9px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      /* ─── ranking badge ─── */
+      .rk-1 {
+        background: #ffd700;
+        color: #7a5c00;
+      }
+
+      .rk-2 {
+        background: #e0e0e0;
+        color: #555;
+      }
+
+      .rk-3 {
+        background: #cd7f32;
+        color: #fff;
+      }
+
+      .rk-n {
+        background: #f0f0f0;
+        color: #666;
+      }
+
+      .rk-badge {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* ─── note ─── */
+      .note-box {
+        background: #fff8e1;
+        border-left: 4px solid #ffc107;
+        border-radius: 0 8px 8px 0;
+        padding: 9px 14px;
+        font-size: 12px;
+        color: #5d4037;
+      }
+
+      /* ─── spinner ─── */
+      .spin-wrap {
+        display: none;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .spin-wrap.on {
+        display: flex;
+      }
+
+      /* ─── kota tag ─── */
+      .kota-tag {
+        background: #435ebe;
+        color: #fff;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      /* ─── card hover ─── */
+      .card {
+        transition: box-shadow 0.18s;
+      }
+
+      .card:hover {
+        box-shadow: 0 4px 18px rgba(67, 94, 190, 0.09);
+      }
+
+      /* ─── table ─── */
+      .table tbody tr:hover {
+        background: #f5f8ff;
+      }
+
+      /* ─── sort header ─── */
+      th.sortable {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      th.sortable:hover {
+        background: #e8eeff;
+      }
+
+      th.sortable .sort-icon {
+        margin-left: 4px;
+        opacity: 0.4;
+        font-size: 11px;
+      }
+
+      th.sortable.asc .sort-icon::after {
+        content: "▲";
+        opacity: 1;
+      }
+
+      th.sortable.desc .sort-icon::after {
+        content: "▼";
+        opacity: 1;
+      }
+
+      /* ─── download bar ─── */
+      .dl-bar {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 14px 18px;
+      }
+
+      /* ─── year tab ─── */
+      .yr-tab {
+        font-size: 12px;
+        padding: 4px 12px;
+      }
+
+      /* ─── section header card ─── */
+      .section-hero {
+        background: linear-gradient(135deg, #435ebe, #6c7fdb);
+        border-radius: 12px;
+        padding: 18px 24px;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      .section-hero h4 {
+        font-weight: 800;
+        margin-bottom: 2px;
+      }
+
+      .section-hero p {
+        opacity: 0.85;
+        font-size: 13px;
+        margin: 0;
+      }
+
+      /* ─── comparison info stat tiles ─── */
+      .cmp-stat {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 12px 14px;
+        text-align: center;
+      }
+
+      .cmp-stat .cs-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #aaa;
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .cmp-stat .cs-val {
+        font-size: 20px;
+        font-weight: 800;
+        color: #435ebe;
+        line-height: 1;
+      }
+
+      .cmp-stat .cs-sub {
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
+      }
+
+      /* ─── data lengkap bar indicator ─── */
+      .tpt-bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .tpt-bar {
+        height: 8px;
+        border-radius: 4px;
+        min-width: 4px;
+        flex-shrink: 0;
+      }
+
+      /* ─── overview sort toggle ─── */
+      .sort-toggle .btn {
+        font-size: 11px;
+        padding: 3px 10px;
+      }
+
+      /* ════════════════════════════════════════════════
+         DARK MODE
+      ════════════════════════════════════════════════ */
+      body.dark-mode {
+        background-color: #1a1c2b !important;
+        color: #cdd3e0 !important;
+      }
+      body.dark-mode #sidebar .sidebar-wrapper {
+        background: #1f2237 !important;
+        border-right: 1px solid #2e3250;
+      }
+      body.dark-mode #sidebar .sidebar-wrapper .sidebar-header {
+        border-bottom: 1px solid #2e3250;
+      }
+      body.dark-mode #sidebar .menu .sidebar-item .sidebar-link {
+        color: #a6aec5 !important;
+      }
+      body.dark-mode #sidebar .menu .sidebar-item.active .sidebar-link,
+      body.dark-mode #sidebar .menu .sidebar-item .sidebar-link:hover {
+        background: rgba(99, 120, 221, 0.15) !important;
+        color: #7b9cff !important;
+      }
+      body.dark-mode #sidebar .menu .sidebar-title {
+        color: #5a6278 !important;
+      }
+      body.dark-mode .navbar-top {
+        background: #1f2237 !important;
+        border-bottom: 1px solid #2e3250;
+      }
+      body.dark-mode .card {
+        background: #252840 !important;
+        border-color: #2e3250 !important;
+        color: #cdd3e0 !important;
+      }
+      body.dark-mode .card:hover {
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+      }
+      body.dark-mode .card-header {
+        background: #2b2f4a !important;
+        border-bottom-color: #2e3250 !important;
+      }
+      body.dark-mode .table {
+        color: #cdd3e0 !important;
+      }
+      body.dark-mode .table thead th {
+        background: #2b2f4a !important;
+        border-color: #3a3f5c !important;
+        color: #a6aec5 !important;
+      }
+      body.dark-mode .table tbody tr td {
+        border-color: #2e3250 !important;
+      }
+      body.dark-mode .table tbody tr:hover {
+        background: #2b2f4a !important;
+      }
+      body.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+        background: rgba(255, 255, 255, 0.03) !important;
+      }
+      body.dark-mode .form-select,
+      body.dark-mode .form-control {
+        background-color: #2b2f4a !important;
+        border-color: #3a3f5c !important;
+        color: #cdd3e0 !important;
+      }
+      body.dark-mode .form-select:focus,
+      body.dark-mode .form-control:focus {
+        border-color: #6378dd !important;
+        box-shadow: 0 0 0 3px rgba(99, 120, 221, 0.2) !important;
+      }
+      body.dark-mode .bg-white {
+        background-color: #252840 !important;
+      }
+      body.dark-mode .text-muted {
+        color: #7b849c !important;
+      }
+      body.dark-mode .dl-bar {
+        background: #2b2f4a !important;
+        border-color: #3a3f5c !important;
+      }
+      body.dark-mode .formula-box {
+        background: #1e2a4a !important;
+        color: #7b9cff !important;
+      }
+      body.dark-mode .calc-step {
+        background: #2b2f4a !important;
+        color: #cdd3e0 !important;
+      }
+      body.dark-mode .note-box {
+        background: #2e2b1f !important;
+        color: #c9a84c !important;
+      }
+      body.dark-mode .cmp-stat {
+        background: #2b2f4a !important;
+      }
+      body.dark-mode .cmp-stat .cs-val {
+        color: #7b9cff !important;
+      }
+      body.dark-mode .badge.bg-light-primary {
+        background: #1e2a4a !important;
+      }
+      body.dark-mode .badge.bg-light-success {
+        background: #1a2e25 !important;
+      }
+      body.dark-mode .badge.bg-light-danger {
+        background: #2e1a1a !important;
+      }
+      body.dark-mode .badge.bg-light-warning {
+        background: #2e2510 !important;
+      }
+      body.dark-mode #main {
+        background: #1a1c2b;
+      }
+      body.dark-mode .page-heading h3,
+      body.dark-mode .page-heading p {
+        color: #cdd3e0 !important;
+      }
+      body.dark-mode .breadcrumb-item a {
+        color: #7b9cff !important;
+      }
+      body.dark-mode h1,
+      body.dark-mode h2,
+      body.dark-mode h3,
+      body.dark-mode h4,
+      body.dark-mode h5,
+      body.dark-mode h6 {
+        color: #e0e4f0 !important;
+      }
+      body.dark-mode .section-hero {
+        background: linear-gradient(135deg, #2d3a7a, #4050a0) !important;
+      }
+      body.dark-mode .pred-card {
+        background: linear-gradient(135deg, #2d3a7a, #4050a0) !important;
+      }
+      /* Dark mode toggle button */
+      #theme-toggle {
+        background: none;
+        border: 1px solid #d0d5e2;
+        border-radius: 8px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #555;
+        font-size: 17px;
+        padding: 0;
+        line-height: 1;
+      }
+      #theme-toggle:hover {
+        background: #f0f0f0;
+        border-color: #aaa;
+      }
+      body.dark-mode #theme-toggle {
+        border-color: #3a3f5c;
+        color: #cdd3e0;
+      }
+      body.dark-mode #theme-toggle:hover {
+        background: #2b2f4a;
+      }
+
+      /* ════════════════════════════════════════════════
+         DATASET PAGE
+      ════════════════════════════════════════════════ */
+      .dataset-tab-pane {
+        display: block;
+      }
+      #dropZone.dz-active {
+        border-color: #435ebe !important;
+        background: #eef1ff !important;
+      }
+      body.dark-mode #dropZone {
+        background: #1e2237 !important;
+        border-color: #3a3f5c !important;
+      }
+      body.dark-mode #dropZone.dz-active {
+        background: #252840 !important;
+        border-color: #7b9cff !important;
+      }
+      #manualTable td input,
+      #manualTable td select {
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        font-size: 12px;
+        padding: 4px 6px;
+        width: 100%;
+      }
+      #manualTable td input:focus,
+      #manualTable td select:focus {
+        outline: 2px solid #435ebe;
+        border-radius: 4px;
+      }
+      body.dark-mode #manualTable td input,
+      body.dark-mode #manualTable td select {
+        background: transparent;
+        color: #cdd3e0;
+      }
+      .nav-tabs .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        color: #888;
+      }
+      .nav-tabs .nav-link.active {
+        color: #435ebe;
+        border-bottom-color: #435ebe;
+      }
+      body.dark-mode .nav-tabs {
+        border-color: #2e3250;
+      }
+      body.dark-mode .nav-tabs .nav-link {
+        color: #7b849c;
+      }
+      body.dark-mode .nav-tabs .nav-link.active {
+        background: #252840;
+        color: #7b9cff;
+        border-color: #2e3250 #2e3250 #252840;
+      }
+
+      /* Tambahkan ini di bagian <style> */
+      .table td,
+      .table th {
+        white-space: normal !important; /* Memaksa teks turun ke bawah jika kolom sempit */
+        word-break: break-word;
+        vertical-align: middle;
+      }
+
+      /* Opsional: Jika card-body terlalu sempit */
+      .card-body {
+        overflow-x: auto; /* Mencegah seluruh card merusak layout */
+      }
+
+      /* Mengecilkan font khusus untuk tabel di bagian dataset */
+      #tab-manual table,
+      #tab-preview table {
+        font-size: 0.85rem; /* Ukuran standar biasanya 1rem */
+      }
+
+      /* Mengurangi padding agar baris tidak terlalu tinggi */
+      #tab-manual .table td,
+      #tab-manual .table th {
+        padding: 0.5rem 0.5rem;
+        vertical-align: middle;
+      }
+
+      /* Pastikan input di dalam tabel juga mengecil mengikuti font */
+      #tab-manual .form-control,
+      #tab-manual .form-select {
+        font-size: 0.85rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      /* --- CSS FINAL: BALANCE TAHUN & FOOTER --- */
+
+      /* 1. Menyamakan Font Tahun dengan Kolom Lain */
+      #anTableBody td:first-child {
+        font-weight: 700;
+        font-size: 0.8rem !important; /* Disamakan dengan kolom angka */
+        color: #435ebe; /* Memberi warna khas agar sebagai jangkar baris */
+        text-align: center !important;
+      }
+
+      /* 2. Memperbaiki Baris Rata-Rata (Footer) */
+      #anTableFoot td {
+        background-color: #f0f3ff !important; /* Warna beda tipis agar terlihat sebagai total */
+        vertical-align: middle !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+      }
+
+      /* Tulisan "Rata-rata" di kolom pertama footer */
+      #anTableFoot td:first-child {
+        font-size: 0.8rem !important;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: #25396f;
+        text-align: center !important;
+        letter-spacing: 0.5px;
+      }
+
+      /* Angka rata-rata di kolom selisih */
+      #an-avgAkt,
+      #an-avgPred,
+      #an-avgSel {
+        font-size: 0.8rem !important;
+        font-weight: 800;
+        color: #25396f;
+        text-align: center !important;
+      }
+
+      /* 3. Penyesuaian Lebar Kolom agar Stabil */
+      .table th:nth-child(1) {
+        width: 12%;
+      } /* Tahun sedikit dilebarkan */
+      .table th:nth-child(2),
+      .table th:nth-child(3),
+      .table th:nth-child(4) {
+        width: 16%;
+      } /* Kolom angka dibuat sama persis */
+      .table th:nth-child(5) {
+        width: 18%;
+      } /* Akurasi */
+      .table th:nth-child(6) {
+        width: 22%;
+      } /* Formula */
+
+      /* Tambahkan sedikit efek transparan pada header agar lebih modern */
+      .table-light th {
+        background-color: rgba(242, 244, 246, 0.9) !important;
+        font-weight: 700;
+        color: #444;
+      }
+      /* --- PERBAIKAN HEADER PANDUAN --- */
+
+      /* 1. Kecilkan font semua header di tabel panduan */
+      .table-fixed-panduan thead th {
+        font-size: 0.6rem !important; /* Font sangat kecil tapi tegas */
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        font-weight: 800; /* Dibuat lebih tebal agar tetap terbaca */
+        text-transform: uppercase;
+        color: #555;
+        letter-spacing: 0.3px;
+        background-color: #f8f9fa !important;
+        border-bottom: 1px solid #dee2e6 !important;
+      }
+
+      /* 2. Pastikan isi tabel tetap proporsional */
+      .table-fixed-panduan tbody td {
+        font-size: 0.78rem !important; /* Isi sedikit lebih besar dari header agar balance */
+        padding: 6px 4px !important;
+      }
+
+      /* 3. Pengaturan Lebar Kolom (Tetap dipertahankan) */
+      .table-fixed-panduan th:nth-child(1) {
+        width: 45%;
+      } /* Kolom */
+      .table-fixed-panduan th:nth-child(2) {
+        width: 30%;
+      } /* Contoh */
+      .table-fixed-panduan th:nth-child(3) {
+        width: 25%;
+      } /* Wajib */
+
+      /* 4. Khusus kolom Wajib agar teks "Ya" tidak makan tempat */
+      .table-fixed-panduan td:nth-child(3) {
+        font-size: 0.7rem !important;
+        font-weight: 600;
+      }
+
+      /* Tambahan: Pastikan teks tidak tumpang tindih */
+      .table-fixed-panduan td {
+        font-size: 0.8rem !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 8px 4px !important;
+      }
+
+      /* --- PERBAIKAN LOGO SIDEBAR GAGAH --- */
+
+      .sidebar-header {
+        /* Memberi ruang luas untuk logo besar */
+        padding: 2.2rem 1.5rem 1rem !important;
+      }
+
+      .sidebar-header .d-flex span {
+        /* Font Size Super Besar & Tebal */
+        font-size: 28px !important;
+        font-weight: 850 !important;
+        color: #435ebe !important;
+        letter-spacing: -1.2px; /* Teknik merapatkan agar teks besar tidak ompong */
+
+        /* Menjamin teks dan ikon rata tengah secara vertikal */
+        display: flex !important;
+        align-items: center !important;
+        line-height: 1;
+      }
+
+      /* Membesarkan Ikon secara spesifik */
+      .sidebar-header .d-flex span i {
+        font-size: 34px !important; /* Lebih besar dari teksnya */
+        color: #435ebe !important;
+        margin-right: 12px !important; /* Jarak lega agar tidak berhimpit */
+
+        /* Tambahan efek bayangan halus agar ikon lebih hidup */
+        text-shadow: 0 4px 10px rgba(67, 94, 190, 0.2);
+      }
+
+      /* Opsional: Pastikan sidebar cukup lebar untuk menampung logo baru */
+      .sidebar-wrapper {
+        width: 270px !important; /* Dinaikkan sedikit dari standar mazer */
+      }
